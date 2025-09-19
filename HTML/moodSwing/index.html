@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moodify - Your Mood Based Music & Wallpaper Companion</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo">
+                <i class="fas fa-music"></i>
+                <span>Moodify</span>
+            </div>
+            <div class="tagline">Your Mood, Your Music, Your Style</div>
+        </div>
+        <h1>Mood Based Music & Wallpaper Recommendation</h1>
+        <div class="mood-selection">
+            <h2>Select Your Mood</h2>
+            <button class="mood-btn" data-mood="happy">Happy</button>
+            <button class="mood-btn" data-mood="sad">Sad</button>
+            <button class="mood-btn" data-mood="energetic">Energetic</button>
+            <button class="mood-btn" data-mood="calm">Calm</button>
+            <button class="mood-btn" data-mood="angry">Angry</button>
+            <button class="mood-btn" data-mood="fear">Fear</button>
+            <button class="mood-btn" data-mood="love">Love</button>
+            <button class="mood-btn" data-mood="mix">Mix</button>
+            <button class="mood-btn lofi-btn" data-mood="lofi">Lofi</button>
+        </div>
+        <div class="recommendation-section">
+            <div class="music-player">
+                <h2>Music Recommendation</h2>
+                <div id="track-info">
+                    <img id="album-art" src="" alt="Album Art" style="display:none;"/>
+                    <div id="song-details"></div>
+                </div>
+                <audio id="audio-player" controls style="display:none;"></audio>
+                <div id="player-controls" style="display:none;">
+                    <button id="prev-btn">Prev</button>
+                    <button id="play-pause-btn">Play</button>
+                    <button id="next-btn">Next</button>
+                </div>
+                <input type="range" id="progress-bar" value="0" max="100" style="width:100%;margin-top:10px;">
+                <div id="time" style="text-align:right;font-size:0.9em;">0:00 / 0:30</div>
+            </div>
+            <div class="wallpaper-section">
+                <h2>Wallpaper Recommendation</h2>
+                <img id="wallpaper" src="" alt="Wallpaper" style="max-width:100%; display:none;"/>
+                <div class="wallpaper-controls">
+                    <button id="download-wallpaper" class="wallpaper-btn">
+                        <i class="fas fa-download"></i> Download Wallpaper
+                    </button>
+                    <button id="refresh-wallpaper" class="wallpaper-btn">
+                        <i class="fas fa-sync-alt"></i> Refresh Wallpaper
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
