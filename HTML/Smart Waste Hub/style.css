@@ -1,0 +1,46 @@
+:root {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+    --primary: 142 45% 42%; 
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --radius: 0.5rem;
+}
+ 
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+}
+
+.card {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-radius: var(--radius);
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
+}
+
+.tab-button.active {
+    background-color: hsl(var(--secondary));
+    border-left: 4px solid hsl(var(--primary));
+    font-weight: 600;
+}
+ 
+.fill-bar {
+    transition: width 1s ease-in-out;
+}
