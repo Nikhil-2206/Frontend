@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management Solution</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen">
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        
+        <aside id="sidebar" class="bg-gray-900 w-full lg:w-64 p-4 lg:p-6 shadow-2xl lg:shadow-none border-b lg:border-r border-gray-800">
+            <h1 class="text-2xl font-bold text-white mb-8 border-b border-gray-700 pb-3">
+                <span class="text-green-400">&#10003;</span> Smart Waste Hub
+            </h1>
+            
+            <nav class="space-y-2">
+                <button onclick="showSection('dashboard')" class="tab-button active w-full text-left p-3 rounded-r-lg transition duration-150 ease-in-out text-gray-200 hover:bg-gray-800">
+                    &#128200; Admin Dashboard
+                </button>
+                <button onclick="showSection('route-opt')" class="tab-button w-full text-left p-3 rounded-r-lg transition duration-150 ease-in-out text-gray-400 hover:bg-gray-800">
+                    &#128666; Route Optimization
+                </button>
+                <button onclick="showSection('reporting')" class="tab-button w-full text-left p-3 rounded-r-lg transition duration-150 ease-in-out text-gray-400 hover:bg-gray-800">
+                    &#128202; Compliance & Reporting
+                </button>
+                <button onclick="showSection('citizen-hub')" class="tab-button w-full text-left p-3 rounded-r-lg transition duration-150 ease-in-out text-gray-400 hover:bg-gray-800">
+                    &#127881; Citizen Engagement
+                </button>
+            </nav>
+            
+            <div class="mt-12 pt-4 border-t border-gray-800">
+                <p class="text-sm text-gray-500">Theme: Clean & Green Technology</p>
+                <p class="text-sm text-gray-500">Problem ID: SIH25060</p>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-4 sm:p-8 overflow-y-auto">
+            
+            <div id="login-section" class="space-y-6 max-w-lg mx-auto py-12 text-center card p-8 mb-12">
+                <h2 class="text-3xl font-bold text-white">Welcome, Operator or Citizen!</h2>
+                <p class="text-gray-400">Please log in to access monitoring, reporting, and reward features.</p>
+                <input type="text" placeholder="User ID / Operator ID" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-150">
+                <button onclick="simulateLogin()" class="btn-primary w-full py-3 font-semibold shadow-lg shadow-green-900/50">
+                    Access Dashboard
+                </button>
+            </div>
+
+            <section id="dashboard-section" class="hidden space-y-8">
+                <h2 class="text-4xl font-extrabold text-white">Real-Time Waste Monitoring</h2>
+                <p class="text-gray-400">Monitor fill levels and status across the city. Prevents overflow and reduces litter in public spaces.</p>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card p-5 text-center">
+                        <p class="text-5xl font-extrabold text-green-400" id="total-bins">54</p>
+                        <p class="text-gray-400">Total Smart Bins</p>
+                    </div>
+                    <div class="card p-5 text-center">
+                        <p class="text-5xl font-extrabold text-red-400" id="critical-bins">4</p>
+                        <p class="text-gray-400">Critical (> 80% Full)</p>
+                    </div>
+                    <div class="card p-5 text-center">
+                        <p class="text-5xl font-extrabold text-yellow-400" id="trucks-active">8</p>
+                        <p class="text-gray-400">Active Fleet (GPS Tracked)</p>
+                    </div>
+                </div>
+                
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2 flex justify-between items-center">
+                        Dehradun Bin Map View
+                        <span class="text-sm text-green-400 font-normal">&#x1F5FA; Live Data Feed</span>
+                    </h3>
+                    <div class="relative w-full h-80 rounded-md overflow-hidden bg-gray-700/50 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center text-white text-xl font-bold p-4">
+                            Map Visualization of Smart Bins
+                        </div>
+                    </div>
+                    <div class="flex justify-around text-sm mt-4 p-3 bg-gray-800 rounded-md">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            <span class="text-gray-400">Low Fill (&lt;50%)</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                            <span class="text-gray-400">Medium/High Fill (50-80%)</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                            <span class="text-gray-400">Critical Fill (&gt;80%)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Bin Fill Status (Last Updated: <span id="last-update">--</span>)</h3>
+                    <div id="bin-list" class="space-y-4">
+                        </div>
+                </div>
+            </section>
+
+            <section id="route-opt-section" class="hidden space-y-8">
+                <h2 class="text-4xl font-extrabold text-white">AI Route Optimization</h2>
+                <p class="text-gray-400">Calculates the most efficient route based on real-time bin levels, cutting fuel and operational costs by up to 80%.</p>
+
+                <div class="card p-6 max-w-2xl">
+                    <h3 class="text-2xl font-semibold mb-4">Generate Optimized Route</h3>
+                    
+                    <div class="space-y-4">
+                        <label for="truck-id" class="block text-sm font-medium text-gray-400">Truck/Operator ID</label>
+                        <input type="text" id="truck-id" value="TRK-401" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:ring-2 focus:ring-green-500">
+                        
+                        <label for="start-location" class="block text-sm font-medium text-gray-400">Starting Location</label>
+                        <input type="text" id="start-location" value="Depot Zone A" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:ring-2 focus:ring-green-500">
+                        
+                        <button onclick="calculateRoute()" class="btn-primary w-full py-3 font-semibold">
+                            &#128640; Calculate Optimal Route
+                        </button>
+                    </div>
+                    
+                    <div id="route-output" class="mt-6 p-4 bg-gray-800 rounded-lg hidden">
+                        <p class="text-green-400 font-medium mb-2">Optimization Result:</p>
+                        <p id="route-details" class="text-gray-300 text-sm"></p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="reporting-portal-section" class="hidden space-y-8">
+                <h2 class="text-4xl font-extrabold text-white">Compliance & Reporting Portal</h2>
+                <p class="text-gray-400">Monitor overall system health, compliance rates, and track citizen-reported issues.</p>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card p-5 text-center">
+                        <p class="text-5xl font-extrabold text-green-400" id="compliance-rate">98.5%</p>
+                        <p class="text-gray-400">Avg. Collection Compliance</p>
+                    </div>
+                    <div class="card p-5 text-center">
+                        <p class="text-5xl font-extrabold text-blue-400" id="resolution-rate">95%</p>
+                        <p class="text-gray-400">Issue Resolution Rate (7-day)</p>
+                    </div>
+                    <div class="card p-5 text-center">
+                        <p class="text-5xl font-extrabold text-red-400" id="open-reports">2</p>
+                        <p class="text-gray-400">Open Citizen Reports</p>
+                    </div>
+                </div>
+
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Active Citizen Reports (<span id="report-count">0</span>)</h3>
+                    <div id="issue-list" class="space-y-4">
+                        <p id="no-reports-msg" class="text-gray-500">No open reports. All clear!</p>
+                    </div>
+                    <button onclick="updateReportingPortal()" class="btn-primary mt-4 px-4 py-2 text-sm">
+                        &#8635; Refresh Reports
+                    </button>
+                </div>
+            </section>
+
+            <section id="citizen-hub-section" class="hidden space-y-8">
+                <h2 class="text-4xl font-extrabold text-white">Citizen Engagement & Rewards</h2>
+                <p class="text-gray-400">Encourage participation by rewarding citizens for proper waste disposal and reporting. <span class="text-green-400 font-medium">Earn points to encourage participation!</span></p>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card p-5 text-center md:col-span-1">
+                        <p class="text-5xl font-extrabold text-yellow-400" id="reward-points">1,450</p>
+                        <p class="text-gray-400">Your Reward Points</p>
+                    </div>
+                    
+                    <div class="card p-6 md:col-span-2">
+                        <h3 class="text-2xl font-semibold mb-4">Report Waste or Request Pickup</h3>
+                        <div class="space-y-4">
+                            <select id="garbage-type" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:ring-2 focus:ring-green-500">
+                                <option>Select Garbage Type</option>
+                                <option>Dry/Recyclable</option>
+                                <option>Wet/Organic</option>
+                                <option>E-Waste</option>
+                                <option>Illegal Dumping/Overflowing Bin</option>
+                            </select>
+                            
+                            <input type="text" id="citizen-location" placeholder="Your Location (e.g., House No. 12, Sector 5)" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:ring-2 focus:ring-green-500">
+                            
+                            <textarea id="notes" placeholder="Notes (e.g., approx amount, special instructions)" rows="2" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:ring-2 focus:ring-green-500"></textarea>
+
+                            <button onclick="reportWaste()" class="btn-primary w-full py-3 font-semibold">
+                                Submit Report & Earn Points
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div id="message-box" class="fixed bottom-4 right-4 bg-green-800 text-white p-4 rounded-lg shadow-xl z-50 transition-transform duration-300 transform translate-x-full" style="display: none;">
+                Message goes here.
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
