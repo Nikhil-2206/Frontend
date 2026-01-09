@@ -18,11 +18,9 @@ body {
 
 .container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
-    width: 100%;
+    margin: 2rem 0;
 }
 
 .game {
@@ -40,9 +38,23 @@ body {
     border: none;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
     font-size: 8vmin;
-    color: #b0413e;
     background-color: #ffffc7;
     cursor: pointer;
+}
+
+/* O style */
+.box.o {
+    color: #2ecc71;
+}
+
+/* X style */
+.box.x {
+    color: #e74c3c;
+}
+
+.box:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
 }
 
 #reset-btn,
@@ -66,15 +78,13 @@ body {
 #msg {
     color: #ffffc7;
     font-size: 5vmin;
-    text-align: center;
 }
 
 .msg-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 30vmin;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .hide {
